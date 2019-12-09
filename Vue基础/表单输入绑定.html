@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单输入绑定</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <h2>文本</h2>
+    <div id="textVm">
+        <!-- <input v-model.lazy="message" placeholder="edit me"> -->
+        <!-- 在“change”时而非“input”时更新 -->
+        <input v-model="message" placeholder="edit me">
+        <p>Message is: {{ message }}</p>
+    </div>
+    <hr/>
+
+    <h2>多行文本</h2>
+    <div id="multiTextVm">
+        <span>Multiline message is:</span>
+        <p style="white-space: pre-line;">{{ message }}</p>
+        <br>
+        <textarea v-model="message" placeholder="add multiple lines"></textarea>
+    </div>
+    <hr/>
+
+    <h2>复选框</h2>
+    <div id="multiCheckBox">
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+    </div>
+    <br/>
+    <div id='multiCheckBox-1'>
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label>
+        <br>
+        <span>Checked names: {{ checkedNames }}</span>
+    </div>
+    <hr/>
+
+    <div id="radio">
+        <input type="radio" id="one" value="One" v-model="picked">
+        <label for="one">One</label>
+        <br>
+        <input type="radio" id="two" value="Two" v-model="picked">
+        <label for="two">Two</label>
+        <br>
+        <span>Picked: {{ picked }}</span>
+    </div>
+    <hr/>
+
+    <h2>选择框</h2>
+    <!-- 如果 v-model 表达式的初始值未能匹配任何选项，<select> 元素将被渲染为“未选中”状态。在 iOS 中
+        ，这会使用户无法选择第一个选项。因为这样的情况下，iOS 不会触发 change 事件。因此，更推荐像上面
+        这样提供一个值为空的禁用选项。 -->
+    <h4>&nbsp;&nbsp;&nbsp;--单选</h4>
+    <div id="option1">
+        <select v-model="selected">
+            <option disabled value="">请选择</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+    </div>
+
+    <h4>&nbsp;&nbsp;&nbsp;--多选</h4>
+    <div id="option2">
+        <select v-model="selected" multiple style="width: 50px;">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <br>
+        <span>Selected: {{ selected }}</span>
+    </div>
+
+    <h4>&nbsp;&nbsp;&nbsp;--v-for</h4>
+    <div id="option3">
+        <select v-model="selected">
+            <option disabled value="">请选择</option>
+            <option v-for="option in options" v-bind:value="option.value">
+                {{ option.text }}
+            </option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+    </div>
+    <hr/>
+
+    <h2>值绑定</h2>
+    <div id="dataBind">
+        <!-- 当选中时，`picked` 为字符串 "a" -->
+        <input type="radio" v-model="picked" value="a">
+
+        <!-- `toggle` 为 true 或 false -->
+        <input type="checkbox" v-model="toggle">
+
+        <!-- 当选中第一个选项时，`selected` 为字符串 "abc" -->
+        <select v-model="selected">
+            <option value="abc">ABC</option>
+        </select>
+        <input type="checkbox" v-model="toggle" true-value="yes" false-value="no">
+    </div>
+
+
+
+</body>
+
+
+<script>
+
+    var textVm = new Vue({
+        el: '#textVm',
+        data: {
+            message: ''
+        }
+    });
+
+    var multiTextVm = new Vue({
+        el: '#multiTextVm',
+        data: {
+            message: '',
+        },
+    });
+
+    var multiCheckBoxVm = new Vue({
+        el: "#multiCheckBox",
+        data: {
+            checked: false,
+        },
+    });
+
+    var multiCheckBox1Vm = new Vue({
+        el: "#multiCheckBox-1",
+        data: {
+            checkedNames: [],
+        },
+    });
+
+    var radio = new Vue({
+        el: "#radio",
+        data: {
+            picked: '',
+        },
+    });
+
+    var option1 = new Vue({
+        el: "#option1",
+        data: {
+            selected: '',
+        },
+    });
+
+    var option2 = new Vue({
+        el: "#option2",
+        data: {
+            selected: [],
+        },
+    });
+
+    var option3 = new Vue({
+        el: "#option3",
+        data: {
+            selected: '',
+            options: [
+                { text: 'One', value: 'A' },
+                { text: 'Two', value: 'B' },
+                { text: 'Three', value: 'C' }
+            ],
+        },
+    });
+
+    var dataBindeVm = new Vue({
+        el: "#dataBind",
+        data: {
+            selected: 'a',
+            toggle: true,
+            picked: true,
+        },
+    });
+
+</script>
+
+</html>

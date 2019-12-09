@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Class 与 Style 绑定</title>
+    <script src="./vue.js"></script>
+    <style type="text/css">
+    </style>
+</head>
+
+<body>
+
+    <!-- Object Syntax -->
+    <div id="objectSyntax1" v-bind:class="{active : isActive}">
+        Alex Qin
+    </div>
+
+    <div id="objectSyntax2" class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }">
+        Alex Qin
+    </div>
+
+    <div id="objectSyntax3" v-bind:class="classObject1"></div>
+    Alex Qin
+    </div>
+
+    <div id="objectSyntax4" v-bind:class="classObject2"></div>
+    Alex Qin
+    </div>
+    <!-- Array Syntax -->
+
+    <div id="arraySyntax1" v-bind:class="[activeclass, errorClass]">
+        Alex Qin
+    </div>
+</body>
+<script>
+    //<!-- Object Syntax -->
+    var app1 = new Vue({
+        el: "#objectSyntax1",
+        data: {
+            isActive: true,
+            hasError: false
+        }
+    });
+    var app2 = new Vue({
+        el: "#objectSyntax2",
+        data: {
+            isActive: true,
+            hasError: false
+        }
+    });
+
+    var app3 = new Vue({
+        el: "#objectSyntax3",
+        data: {
+            classObject1: {
+                active: true,
+                'text-danger': false
+            }
+        }
+    });
+
+    var app4 = new Vue({
+        el: "#objectSyntax4",
+        data: {
+            isActive: true,
+            error: null
+        },
+        computed: {
+            classObject2: function () {
+                return {
+                    active: this.isActive && !this.error,
+                    'text-danger': this.error && this.error.type === "fatal"
+                }
+            }
+        }
+    });
+
+    //<!-- Array Syntax -->
+    var app5 = new Vue({
+        el: "#arraySyntax1",
+        data: {
+            activeClass: 'active',
+            errorClass: 'text-danger'
+        }
+    });
+
+</script>
+
+</html>

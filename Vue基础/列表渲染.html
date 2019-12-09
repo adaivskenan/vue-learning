@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表渲染</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <h2>列表渲染 用 v-for 把一个数组对应为一组元素</h2>
+    <div>
+        <ul id="example-1">
+            <li v-for="item in items">
+                {{ item.message }}
+            </li>
+        </ul>
+    </div>
+
+    <h3>在 v-for 块中，我们拥有对父作用域属性的完全访问权限，v-for 还支持一个可选的第二个参数，即当前项的索引。</h3>
+    <div>
+        <ul id="example-2">
+            <li v-for="(item, index) in items">
+                {{ parentMessage }} - {{ index }} - {{ item.message }}
+            </li>
+        </ul>
+    </div>
+
+    <hr/>
+
+    <!-- 在 v-for 里使用对象 -->
+    <h2>一个对象的 v-for</h2>
+    <h3>用 v-for 通过一个对象的属性来迭代</h3>
+    <div>
+        <ul id="v-for-object" class="demo">
+            <li v-for="value in object">
+                {{ value }}
+            </li>
+        </ul>
+    </div>
+
+    <h3>提供第二个的参数为键名</h3>
+    <div>
+        <ul id="v-for-object-key-value" class="demo">
+            <div v-for="(value, key) in object">
+                {{ key }}: {{ value }}
+            </div>
+        </ul>
+    </div>
+
+    <h3>第三个参数为索引</h3>
+    <div>
+        <ul id="v-for-object-key-value-index" class="demo">
+            <div v-for="(value, key, index) in object">
+                {{ index }}. {{ key }}: {{ value }}
+            </div>
+        </ul>
+    </div>
+    <hr/>
+
+    <h3>
+        key保证 可以在console输入“let a = v_for_index.items[1];v_for_index.items[1]=v_for_index.items[2];v_for_index.items[2]=a;” 查看效果
+    </h3>
+    <div>
+        <ul id="v-for-index">
+            <div v-for="(item,index) in items" v-bind:key="item.message">
+                {{ item }}: {{index}}:{{ item.message }}
+            </div>
+        </ul>
+    </div>
+
+
+</body>
+<script>
+
+    var example1 = new Vue({
+        el: '#example-1',
+        data: {
+            items: [
+                { message: 'Foo' },
+                { message: 'Bar' }
+            ]
+        }
+    });
+
+    var example2 = new Vue({
+        el: '#example-2',
+        data: {
+            parentMessage: 'Parent',
+            items: [
+                { message: 'Foo' },
+                { message: 'Bar' }
+            ]
+        }
+    });
+
+    //<!-- 在 v-for 里使用对象 -->
+
+    new Vue({
+        el: '#v-for-object',
+        data: {
+            object: {
+                firstName: 'John',
+                lastName: 'Doe',
+                age: 30
+            }
+        }
+    });
+
+    new Vue({
+        el: '#v-for-object-key-value',
+        data: {
+            object: {
+                firstName: 'John',
+                lastName: 'Doe',
+                age: 30
+            }
+        }
+    });
+
+    new Vue({
+        el: '#v-for-object-key-value-index',
+        data: {
+            object: {
+                firstName: 'John',
+                lastName: 'Doe',
+                age: 30
+            }
+        }
+    });
+
+    var v_for_index = new Vue({
+        el: '#v-for-index',
+        data: {
+            items: [
+                { message: '0' },
+                { message: '1' },
+                { message: '2' },
+                { message: '3' }
+            ]
+        }
+    });
+
+</script>
+
+</html>
